@@ -27,6 +27,5 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo "Show Run ID, Run Number, Run Attempt"
-          RUN_UID=
-          echo "RUN_UID=format({0}.{1}.{2}, ${{ github.run_id }}, ${{ github.run_number }}, ${{ github.run_attempt }})" >> $GITHUB_ENV
+          echo "RUN_UID=format('{0}.{1}.{2}', ${{ github.run_id }}, ${{ github.run_number }}, ${{ github.run_attempt }})" >> $GITHUB_ENV
           echo "${{ env.RUN_UID }}"

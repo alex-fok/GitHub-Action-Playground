@@ -15,8 +15,13 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+  
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    
+    # Environment variable
+    env:
+      RUN_UID: ${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -26,8 +31,5 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo "Show Run ID, Run Number, Run Attempt"
-          RUN_UID="${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}"
-          echo $RUN_UID
-          echo "GITHUB_ACTION_RUN_UID=$RUN_UID" >> "$GITHUB_ENV"
-          echo "${{ env.GITHUB_ACTION_RUN_UID }}"
+          echo "Show UID for current run"
+          echo "${{ env.RUN_UID }}"

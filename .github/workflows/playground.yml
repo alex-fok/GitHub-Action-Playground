@@ -30,15 +30,15 @@ jobs:
       - uses: actions/checkout@v4
 
       # Runs a set of commands using the runners shell
-      - name: JSON Handling
+      - id: testVar
+        name: JSON Handling
         run: |
-          echo "TEST_VAR=2" >> $GITHUB_ENV
-          echo "$TEST_VAR"
+          export TEST_VAR=2
           TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 1 and .name == "Classic Margherita Pizza")')
           echo "$TEMP"
 
     outputs:
-      testVar: $TEST_VAR
+      testVar: ${{ steps.testVar.outputs.test_var }}
 
   test2:
     needs: test1
@@ -46,5 +46,4 @@ jobs:
     if: needs.test1.outputs.testVar == 2
     steps:
       - name: Print Result
-        run: echo "SUCCESS"
-    
+        run: echo "${{ needs.test1.outputs.testVar }}"

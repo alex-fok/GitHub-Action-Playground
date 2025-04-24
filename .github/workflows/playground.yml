@@ -23,8 +23,7 @@ jobs:
     env:
       RUN_UID: ${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}
       TEST_VAR: 1
-    outputs:
-      testVar: $TEST_VAR
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -37,6 +36,9 @@ jobs:
           echo "$TEST_VAR"
           TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 1 and .name == "Classic Margherita Pizza")')
           echo "$TEMP"
+
+    outputs:
+      testVar: $TEST_VAR
 
   test2:
     needs: test1

@@ -35,6 +35,8 @@ jobs:
           NAME="Classic Margherita Pizza"
           echo "TEMP: $TEMP"
           echo "NAME: $NAME"
-          if [[ "$TEMP" == "$NAME" ]]; then
-            echo "TEMP EQUALS: $TEMP"
+          if [[ "$TEMP" == "\"Classic Margherita Pizza\"" ]]; then
+            echo "Quote included"
+          elif [[ "$TEMP" == "$NAME" ]]; then
+            echo "Quote not included"
           fi

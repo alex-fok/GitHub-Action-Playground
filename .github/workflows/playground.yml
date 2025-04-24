@@ -32,7 +32,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: JSON Handling
         run: |
-          TEST_VAR=2
+          echo "TEST_VAR=2" >> $GITHUB_ENV
           echo "$TEST_VAR"
           TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 1 and .name == "Classic Margherita Pizza")')
           echo "$TEMP"

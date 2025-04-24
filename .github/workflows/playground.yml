@@ -33,7 +33,8 @@ jobs:
         run: |
           TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes.[0].name')
           NAME="Classic Margherita Pizza"
-          echo "$TEMP"
+          echo "TEMP: $TEMP"
+          echo "NAME: $NAME"
           if [[ "$TEMP" == "$NAME" ]]; then
             echo "TEMP EQUALS: $TEMP"
           fi

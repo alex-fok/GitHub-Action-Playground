@@ -14,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  test1:
   
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -23,7 +23,8 @@ jobs:
     env:
       RUN_UID: ${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}
       TEST_VAR: 1
-
+    outputs:
+      testVar: $TEST_VAR
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -36,3 +37,12 @@ jobs:
           echo "$TEST_VAR"
           TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 1 and .name == "Classic Margherita Pizza")')
           echo "$TEMP"
+
+  test2:
+    needs: test1
+    runs-on: ubuntu-latest
+    if: needs.test1.outputs.testVar == 2
+    steps:
+      - name: Print Result
+        run: echo "SUCCESS"
+    

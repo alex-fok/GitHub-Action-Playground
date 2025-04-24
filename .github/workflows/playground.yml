@@ -31,5 +31,5 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: JSON Handling
         run: |
-          TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes | select(.id == 1)')
+          TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 1)')
           echo "$TEMP"

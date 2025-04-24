@@ -32,8 +32,6 @@ jobs:
         run: |
           export TEST_VAR=2
           echo "test_var=${TEST_VAR}" >> $GITHUB_OUTPUT
-          TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 1 and .name == "Classic Margherita Pizza")')
-          echo "$TEMP"
 
     outputs:
       testVar: ${{ steps.testVar.outputs.test_var }}
@@ -45,3 +43,18 @@ jobs:
     steps:
       - name: Print Result
         run: echo "${{ needs.test1.outputs.testVar }}"
+
+  json_test:
+  
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      # Runs a set of commands using the runners shell
+      - id: testVar
+        name: JSON Handling
+        run: |
+          TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 0 and .name == "Classic Margherita Pizza")')
+          echo "$TEMP"

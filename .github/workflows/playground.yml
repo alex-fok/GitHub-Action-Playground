@@ -56,5 +56,5 @@ jobs:
       - id: testVar
         name: JSON Handling
         run: |
-          TEMP=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 0 and .name == "Classic Margherita Pizza")')
-          echo "$TEMP"
+          COUNT=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 0 and .name == "Classic Margherita Pizza") | length')
+          echo "$COUNT"

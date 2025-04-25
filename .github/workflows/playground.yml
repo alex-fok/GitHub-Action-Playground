@@ -62,3 +62,9 @@ jobs:
           else
             echo "NOT EMPTY"
           fi
+          RECIPE2=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 0)')
+          if [[ -z "$RECIPE2" ]]; then
+            echo "EMPTY"
+          else
+            echo "NOT EMPTY"
+          fi

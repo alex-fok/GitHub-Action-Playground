@@ -56,6 +56,7 @@ jobs:
       - id: testVar
         name: JSON Handling
         run: |
+          echo "${{ github.run_id }}"
           RECIPE=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 1 and .name == "Classic Margherita Pizza" and .id != ${{ github.run_id }})')
           if [[ -z "$RECIPE" ]]; then
             export HAS_RECIPE=FALSE

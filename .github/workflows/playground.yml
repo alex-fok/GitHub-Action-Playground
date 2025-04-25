@@ -70,7 +70,7 @@ jobs:
   json_test_print:
     needs: json_test
     runs-on: ubuntu-latest
-    if: needs.json_test.outputs.has_recipe == TRUE
+    if: needs.json_test.outputs.has_recipe == "TRUE"
     steps:
       - name: Print
         run: echo "${{ needs.json_test.outputs.has_recipe }}"

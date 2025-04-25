@@ -57,10 +57,20 @@ jobs:
         name: JSON Handling
         run: |
           RECIPE=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 1 and .name == "Classic Margherita Pizza")')
-          export HAS_RECIPE=${{ [ -z "$RECIPE" ] && TRUE || FALSE }}
-          echo "$HAS_RECIPE"
           if [[ -z "$RECIPE" ]]; then
-            echo "EMPTY"
+            export HAS_RECIPE=FALSE
           else
-            echo "NOT EMPTY"
+            export HAS_RECIPE=TRUE
           fi
+          echo "has_recipe=${HAS_RECIPE}" >> $GITHUB_OUTPUT
+
+    outputs:
+      has_recipe: ${{ steps.testVar.outputs.has_recipe }}
+
+  json_test_print:
+    needs: json_test
+    runs-on: ubuntu-latest
+    if: needs.json_test.outputs.has_recipe == TRUE
+    steps:
+      - name: Print
+        run: echo "${{ needs.json_test.outputs.has_recipe }}"

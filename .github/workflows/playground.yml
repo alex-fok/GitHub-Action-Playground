@@ -57,13 +57,9 @@ jobs:
         name: JSON Handling
         run: |
           RECIPE=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 1 and .name == "Classic Margherita Pizza")')
+          export HAS_RECIPE=${{ -z "$RECIPE" }}
+          echo "$HAS_RECIPE"
           if [[ -z "$RECIPE" ]]; then
-            echo "EMPTY"
-          else
-            echo "NOT EMPTY"
-          fi
-          RECIPE2=$(curl https://dummyjson.com/recipes | jq '.recipes[] | select(.id == 0)')
-          if [[ -z "$RECIPE2" ]]; then
             echo "EMPTY"
           else
             echo "NOT EMPTY"
